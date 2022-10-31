@@ -1,8 +1,12 @@
 
 import memeData from "../memeData";
+import { useState } from "react";
+
+
+
 
 export default function Meme() {
-  
+  const[memeImage, setMeme] = useState("") 
   let url
 
   function getMeme(e) {
@@ -10,7 +14,7 @@ export default function Meme() {
       const data = memeData.data.memes
     const memeRandom = Math.floor(Math.random() * data.length)
     url = data[memeRandom].url
-  console.log(url)
+    setMeme(url)
 
   }
   
@@ -35,6 +39,7 @@ export default function Meme() {
             Get a meme
         </button>
       </form>
+      <img src={memeImage} className="meme--image"/>
     </main>
   )
 }
