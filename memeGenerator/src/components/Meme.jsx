@@ -6,15 +6,28 @@ import { useState } from "react";
 
 
 export default function Meme() {
-  const[memeImage, setMeme] = useState("") 
   let url
+
+  const[memeImage, setMeme] = useState({
+    topText:"",
+    bottomText:"",
+    randomImage:"http://i.imgflip.com/1bij.jpg"
+  }) 
+
+  const[allMemeImages, setAllMemeImages] = useState(memeData)
+
+  
+
 
   function getMeme(e) {
     e.preventDefault(); 
-      const data = memeData.data.memes
+      const data = allMemeImages.data.memes
     const memeRandom = Math.floor(Math.random() * data.length)
     url = data[memeRandom].url
-    setMeme(url)
+    setMeme(oldValue => ({
+      ...oldValue,
+      randomImage: url
+    }))
 
   }
   
@@ -39,7 +52,7 @@ export default function Meme() {
             Get a meme
         </button>
       </form>
-      <img src={memeImage} className="meme--image"/>
+      <img src={memeImage.randomImage} className="meme--image"/>
     </main>
   )
 }
